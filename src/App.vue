@@ -1,26 +1,41 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<script setup>
+import {
+  ref,
+  onBeforeMount,
+  onMounted,
+  onBeforeUnmount,
+  onUnmounted,
+} from "vue";
+import { RouterView } from "vue-router";
+import AppHeader from "@/components/AppHeader.vue";
+import AppFooter from "@/components/AppFooter.vue";
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+const headerTitle = ref("Vue Project (Dynamic)");
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+// ---------------
+// Lifecycle Hooks
+// ---------------
+onBeforeMount(() => {
+  console.log("App.vue: onBeforeMount() called!");
+});
+onMounted(() => {
+  console.log("App.vue: onMounted() called!");
+});
+onBeforeUnmount(() => {
+  console.log("App.vue: onBeforeUnmount() called!");
+});
+onUnmounted(() => {
+  console.log("App.vue: onUnmounted() called!");
+});
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <AppHeader v-bind:title="headerTitle"></AppHeader>
+  <RouterView />
+  <AppFooter>
+    <template v-slot:message>Vue Project from TestDriven.io Course</template>
+    <template v-slot:link
+      ><a href="https://testdriven.io">TestDriven.io</a></template
+    >
+  </AppFooter>
+</template>
